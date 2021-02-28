@@ -63,9 +63,8 @@ export default {
         );
         formData.append("git_profile", this.aboutFormData.git_profile);
         formData.append("about_you", this.aboutFormData.about_you);
-        files.forEach((file, index) => {
-          formData.append("file" + (index + 1), file);
-        });
+        formData.append("cv", files[0]);
+        formData.append("cover_letter", files[1]);
         const response = await fetch(
           "https://recruitment-submissions.netsells.co.uk/api/vacancies/javascript-developer/submissions",
           {
@@ -74,7 +73,7 @@ export default {
           }
         );
 
-        if (response.status === 200) {
+        if (response.ok) {
           this.updateCurrentComponent("success");
         } else {
           //TODO Handle error response
